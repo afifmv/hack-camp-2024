@@ -6,6 +6,21 @@
   margin: auto;
 }
 
+/* #dino { */
+/* height: 100%; */
+/* height: 100px;
+    width: 100px;
+    background-image: url(./img/running.png);
+    background-repeat: no-repeat;
+    background-size: 100px 100px;
+    position: relative;
+    top: 150px; */
+/*margin-left: 15%;*/
+/* } */
+/* .crouch {
+    background-image: url(./img/trex.png);
+  } */
+
 .dino {
   width: 100px;
   height: 100px;
@@ -19,7 +34,7 @@
 .dino.crouch {
   width: 100px;
   height: 100px;
-  background-image: url("./img/trex.png");
+  background-image: url("./img/running.png");
 }
 
 .jump {
@@ -89,7 +104,7 @@
 .bird {
   width: 50px;
   height: 50px;
-  background-image: url("./img/Bird2.png");
+  background-image: url("./img/Bird.png");
   background-size: 50px 50px;
   position: relative;
   /* top: 150px;

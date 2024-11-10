@@ -47,3 +47,10 @@ a {
   font-weight: normal;
   font-style: normal;
 }
+
+@font-face {
+  font-family: "joystix";
+  src: url("./fonts/joystix monospace.otf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}

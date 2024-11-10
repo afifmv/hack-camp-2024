@@ -1,0 +1,52 @@
+.page {
+  background: url("../../../public/background.png");
+  background-size: cover;
+  min-height: 100vh;
+}
+
+.page h1 {
+  /* border: 1px solid red;s   */
+  text-align: center;
+  font-family: "joystix";
+  font-size: 5rem;
+  margin-left: 0px;
+  margin-bottom: 30px;
+}
+
+.how_to_play__container {
+  background: rgb(128, 128, 128, 0.2);
+  height: 60vh;
+  width: 95vw;
+  padding: 10px;
+  margin: auto;
+  font-family: "joystix";
+  display: grid;
+  grid-template-columns: 1fr 0.2fr 1fr 1fr 1fr;
+  text-align: center;
+  gap: 10px;
+}
+
+.how_to_play__container * {
+  margin: auto;
+}
+
+.bigh2 {
+  font-size: 3rem;
+}
+
+.how_to_play__container img {
+  width: auto;
+  height: 300px;
+  margin: auto;
+}
+
+.smallh2 {
+  font-size: 1rem;
+}
+
+.continue {
+  width: 300px;
+  position: relative;
+  bottom: -40px;
+  left: 580px;
+}

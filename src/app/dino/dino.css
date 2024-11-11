@@ -108,16 +108,17 @@
   font-size: 20px;
   font-weight: bold;
 }
+  .bird {
+    width: 50px;
+    height: 50px;
+    background-image: url('./img/lc.png');
+    background-size: 50px 50px;
+    position: absolute;
+    top: 190px;
+    /* display: none; */
+    animation: fly 2s linear;
+  }
 
-.bird {
-  width: 50px;
-  height: 50px;
-  background-image: url("./img/lc.png");
-  background-size: 50px 50px;
-  position: absolute;
-  top: 150px;
-  animation: fly 2s linear;
-}
 
 @keyframes fly {
   0% {

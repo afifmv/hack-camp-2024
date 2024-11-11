@@ -14,7 +14,8 @@ function Dino() {
   const [score, setScore] = useState(0);
   const [gameOver, setGameOver] = useState(false);
   const [randomeDelay, setRandomDelay] = useState(0);
-  const [curEvent, setCurrentEvent] = useState('neutral');
+  const [curEvent, setCurrentEvent] = useState("neutral");
+  const [loading, setLoading] = useState(true);
 
   const jump = () => {
     if (!!dinoRef.current && !dinoRef.current.classList.contains("jump")) {
@@ -38,19 +39,14 @@ function Dino() {
     }
   };
   const resetGame = () => {
-    setScore(0);
-    setGameOver(false);
-    // Optionally, reset positions of cactus and bird
-    // if (cactusRef.current) {
-      move();
-    // }
-    // if (birdRef.current) {
-      moveBird();
-    // }
+    router.push(`/game-start/profile?score=${score}`);
+  };
+
+  const handleVideoTrackerLoaded = () => {
+    setLoading(false); // Once VideoTracker is loaded, set loading to false
   };
 
   function move() {
-    console.log("Move");
     setTimeout(() => {
       if (cactusRef.current) {
         cactusRef.current.style.animation = "block 2s linear";
@@ -60,7 +56,6 @@ function Dino() {
     }, randomeDelay);
   }
   function moveBird() {
-    console.log("Move");
     setTimeout(() => {
       if (birdRef.current) {
         birdRef.current.style.animation = "fly 2s linear";
@@ -76,11 +71,11 @@ function Dino() {
       if (event.key === "ArrowUp") {
         setCurrentEvent("jump");
         jump();
-        setCurrentEvent('neutral');
-      } else if (event.key === 'ArrowDown') {
-        setCurrentEvent('crouch');
+        setCurrentEvent("neutral");
+      } else if (event.key === "ArrowDown") {
+        setCurrentEvent("crouch");
         crouch();
-        setCurrentEvent('neutral');
+        setCurrentEvent("neutral");
       }
     };
     window.addEventListener("keyup", handleKeyPress);
@@ -106,46 +101,31 @@ function Dino() {
       let birdBottom = parseInt(
         getComputedStyle(birdRef.current!).getPropertyValue("bottom")
       );
-      console.log('dinoTop', dinoTop);
-      console.log('bird bottom', birdBottom);
       // if (curEvent === 'jump') {
-        if ((((cactusLeft - dinoRight) < 40 && cactusLeft > 0 && dinoTop >= 180) || ((birdLeft - dinoRight) < 30 && (birdBottom - dinoTop) > 31 && birdLeft > 0))) {
-          console.log("hit");
-          clearInterval(isAlive);
-          if (cactusRef.current) {
-            cactusRef.current.style.display = 'none';
-            cactusRef.current.style.animation = 'none';
-          }
-          if (birdRef.current) {
-            birdRef.current.style.display = 'none';
-            birdRef.current.style.animation = 'none';
-          }
-          
-          setGameOver(true);
-        } else if (cactusLeft < 20 && !gameOver) {
-            console.log("cactus off")
-            cactusRef.current.style.animation = 'none';
-            cactusRef.current.style.display = 'none';
-            move();
-        } else if (birdLeft < 20 && !gameOver) {
-            console.log("bird off")
-            birdRef.current.style.animation = 'none';
-            birdRef.current.style.display = 'none';
-            moveBird();
-        } 
-      // } else if (curEvent === 'crouch') {
-        // console.log("not in jump")
-        // if ((birdLeft - dinoRight) < 40 && (birdBottom - dinoTop) < 10 && birdLeft > 0 && dinoTop >= 180) {
-        //   clearInterval(isAlive);
-        //   birdRef.current.style.animation = 'none';
-        //   setGameOver(true);
-        //   birdRef.current.style.display = 'none';
-        // } else if (birdLeft < 20 && !gameOver) {
-        //     birdRef.current.style.animation = 'none';
-        //     birdRef.current.style.display = 'none';
-        //     moveBird();
-        // }
-      // }
+      if (
+        (cactusLeft - dinoRight < 40 && cactusLeft > 0 && dinoTop >= 180) ||
+        (birdLeft - dinoRight < 30 && birdBottom - dinoTop > 31 && birdLeft > 0)
+      ) {
+        clearInterval(isAlive);
+        if (cactusRef.current) {
+          cactusRef.current.style.display = "none";
+          cactusRef.current.style.animation = "none";
+        }
+        if (birdRef.current) {
+          birdRef.current.style.display = "none";
+          birdRef.current.style.animation = "none";
+        }
+
+        setGameOver(true);
+      } else if (cactusLeft < 20 && !gameOver) {
+        cactusRef.current.style.animation = "none";
+        cactusRef.current.style.display = "none";
+        move();
+      } else if (birdLeft < 20 && !gameOver) {
+        birdRef.current.style.animation = "none";
+        birdRef.current.style.display = "none";
+        moveBird();
+      }
     }, 10);
 
     return () => {
@@ -155,21 +135,27 @@ function Dino() {
   }, [score, gameOver]);
 
   return (
-    <div className="frame">
-      <div className="game">
-        <div ref={dinoRef} className="dino"></div>
-        <div ref={cactusRef} className="cactus" id="cactus"></div>
-        <div ref={birdRef} className="bird" id="bird"></div>
-        <div className="track"></div>
-        <div className="score">Score: {score}</div>
-        {gameOver && (
-          <div className="game-over">
-            Game Over! Your Score: {score}
-            <button onClick={resetGame}>End Game</button>
-          </div>
-        )}
+    <div>
+      <div className="frame">
+        <div className="game">
+          <div ref={dinoRef} className="dino"></div>
+          <div ref={cactusRef} className="cactus" id="cactus"></div>
+          <div ref={birdRef} className="bird" id="bird"></div>
+          <div className="track"></div>
+          <div className="score">Score: {score}</div>
+          {gameOver && (
+            <div className="game-over">
+              Game Over! Your Score: {score}
+              <button onClick={resetGame}>End Game</button>
+            </div>
+          )}
+        </div>
       </div>
-      <VideoTracker onJump={jump} />
+      <VideoTracker
+        onLoaded={handleVideoTrackerLoaded}
+        onJump={jump}
+        onCrouch={crouch}
+      />
     </div>
   );
 }

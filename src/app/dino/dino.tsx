@@ -214,6 +214,8 @@ function Dino() {
   const [gameOver, setGameOver] = useState(false);
   const [randomeDelay, setRandomDelay] = useState(0);
   const [curEvent, setCurrentEvent] = useState('neutral');
+  const [startBird, setStartBird] = useState(false);
+  const [startCactus, setCactus] = useState(false);
 
   const jump = () => {
     if (!!dinoRef.current && !dinoRef.current.classList.contains('jump')) {
@@ -236,6 +238,7 @@ function Dino() {
       }, 200);
     }
   };
+
   const resetGame = () => {
     setScore(0);
     setGameOver(false);
@@ -268,11 +271,17 @@ function Dino() {
           birdRef.current.style.display = 'block';
         }
         // setRandomDelay(randomeDelay + Math.floor(Math.random() * 1000) + 1000);
-      }, randomeDelay + 1000);
+      }, randomeDelay);
 
   }
 
   useEffect(() => {
+    setTimeout(() => {
+      setStartBird(true);
+    }, 8000);
+    setTimeout(() => {
+      setCactus(true);
+    }, 5000);
     const handleKeyPress = (event: KeyboardEvent) => {
       if (event.key === 'ArrowUp') {
         setCurrentEvent('jump');
@@ -292,46 +301,62 @@ function Dino() {
         return;
       }
       setRandomDelay(Math.floor(Math.random() * 1000) + 1000);
+    
       const dinoTop = parseInt(
         getComputedStyle(dinoRef.current!).getPropertyValue("top")
       );
       const dinoRight = parseInt(
         getComputedStyle(dinoRef.current!).getPropertyValue('right')
       );
-      let cactusLeft = parseInt(
-        getComputedStyle(cactusRef.current!).getPropertyValue("left")
-      );
-      let birdLeft = parseInt(
-        getComputedStyle(birdRef.current!).getPropertyValue("left")
-      );
-      let birdBottom = parseInt(
-        getComputedStyle(birdRef.current!).getPropertyValue('bottom')
-      );
+      let cactusLeft = 0;
+      if (cactusRef.current) {
+        cactusLeft = parseInt(
+          getComputedStyle(cactusRef.current!).getPropertyValue("left")
+        );
+      }
+      
+      let birdLeft = 0;
+      let birdBottom = 0;
+      if (birdRef.current) {
+        birdLeft = parseInt(
+          getComputedStyle(birdRef.current!).getPropertyValue("left")
+        );
+        birdBottom = parseInt(
+          getComputedStyle(birdRef.current!).getPropertyValue('bottom')
+        );
+      }
+      
       console.log('dinoTop', dinoTop);
       console.log('bird bottom', birdBottom);
       // if (curEvent === 'jump') {
-        if ((((cactusLeft - dinoRight) < 40 && cactusLeft > 0 && dinoTop >= 180) || ((birdLeft - dinoRight) < 30 && (birdBottom - dinoTop) > 31 && birdLeft > 0))) {
+        if ((((cactusLeft - dinoRight) < 40 && cactusLeft > 0 && dinoTop >= 180) || ((birdLeft - dinoRight) < 40 && (birdBottom - dinoTop) < 30 && birdLeft > 0))) {
           console.log("hit");
           clearInterval(isAlive);
           if (cactusRef.current) {
             cactusRef.current.style.display = 'none';
             cactusRef.current.style.animation = 'none';
+            cactusRef.current.style.left = '800px';
           }
           if (birdRef.current) {
             birdRef.current.style.display = 'none';
             birdRef.current.style.animation = 'none';
+            birdRef.current.style.left = '800px';
           }
           
           setGameOver(true);
         } else if (cactusLeft < 20 && !gameOver) {
             console.log("cactus off")
-            cactusRef.current.style.animation = 'none';
-            cactusRef.current.style.display = 'none';
+            if (cactusRef.current) {
+              cactusRef.current.style.animation = 'none';
+              cactusRef.current.style.display = 'none';
+            }
             move();
         } else if (birdLeft < 20 && !gameOver) {
             console.log("bird off")
-            birdRef.current.style.animation = 'none';
-            birdRef.current.style.display = 'none';
+            if (birdRef.current) {
+              birdRef.current.style.animation = 'none';
+              birdRef.current.style.display = 'none';
+            }
             moveBird();
         } 
       // } else if (curEvent === 'crouch') {
@@ -358,9 +383,15 @@ function Dino() {
   return (
     <div className="frame">
       <div className="game">
+        {/* <button onClick={resetGame}>Start</button> */}
         <div ref={dinoRef} className="dino"></div>
-        <div ref={cactusRef} className="cactus" id="cactus"></div>
-        <div ref={birdRef} className="bird" id="bird"></div>
+        {startCactus && (
+            <div ref={cactusRef} className="cactus" id="cactus"></div>
+        )}
+        {/* <div ref={cactusRef} className="cactus" id="cactus"></div> */}
+        {startBird && (
+            <div ref={birdRef} className="bird" id="bird" ></div>
+        )}
         <div className='track'></div>
         <div className='score'>Score: {score}</div>
         {gameOver && (

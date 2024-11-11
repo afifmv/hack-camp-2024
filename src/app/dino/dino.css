@@ -45,7 +45,7 @@
   }
   
   .jump {
-    animation: jump 0.3s linear;
+    animation: jump 1s linear;
   }
 
   .track {
@@ -62,17 +62,10 @@
       top: 150px;
     }
   
-    30% {
-      top: 130px;
-    }
-  
     50% {
-      top: 80px;
+      top: 60px;
     }
   
-    80% {
-      top: 130px;
-    }
   
     100% {
       top: 150px;
@@ -115,14 +108,15 @@
     background-image: url('./img/lc.png');
     background-size: 50px 50px;
     position: absolute;
-    top: 190px;
+    left: 800px;
+    top: 150px;
     /* display: none; */
     animation: fly 2s linear;
   }
 
   @keyframes fly {
     0% {
-      left: 500px;
+      left: 800px;
     }
     100% {
       left: 1px;

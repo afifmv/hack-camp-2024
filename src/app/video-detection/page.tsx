@@ -1,9 +1,14 @@
-"use client";
+// VideoTracker.tsx
 import { useEffect, useRef } from "react";
 import "@tensorflow/tfjs";
 import * as facemesh from "@tensorflow-models/facemesh";
+import styles from "./page.module.css";
 
-export default function Home() {
+interface VideoTrackerProps {
+  onJump: () => void; // Add onJump as a function prop
+}
+
+export default function VideoTracker({ onJump }: VideoTrackerProps) {
   const videoRef = useRef(null);
   const canvasRef = useRef(null);
   const isWaitingRef = useRef(false);
@@ -47,17 +52,10 @@ export default function Home() {
             ctx.fillStyle = "red";
             ctx.fill();
 
-            // Check nose position for jump or crouch
+            // Check nose position for jump
             if (noseTip[1] < 100 && !isWaitingRef.current) {
-              console.log("jumped");
-              isWaitingRef.current = true;
-              await delay(3000);
-              isWaitingRef.current = false;
-              console.log("Done delay");
-            }
-
-            if (noseTip[1] > 400 && !isWaitingRef.current) {
-              console.log("crouched");
+              console.log("jump detected");
+              onJump(); // Call the jump function passed as prop
               isWaitingRef.current = true;
               await delay(3000);
               isWaitingRef.current = false;
@@ -78,13 +76,12 @@ export default function Home() {
     }
 
     main();
-  }, []);
+  }, [onJump]); // Ensure that the onJump function is updated correctly
 
   return (
-    <div>
-      <h1>Nose Detection</h1>
+    <div className={styles.canvas}>
       <video ref={videoRef} autoPlay playsInline style={{ display: "" }} />
-      <canvas ref={canvasRef} width="640" height="480" />
+      <canvas ref={canvasRef} width="300" height="300" />
     </div>
   );
 }

@@ -48,6 +48,10 @@ function Dino() {
     // router.push(`/game-start/profile?score=${score}`);
   };
 
+  const endGame = () => {
+    router.push(`/game-start/profile?score=${score}`);
+  };
+
   const handleVideoTrackerLoaded = () => {
     setLoading(false); // Once VideoTracker is loaded, set loading to false
   };
@@ -194,11 +198,12 @@ function Dino() {
           {/* <div ref={cactusRef} className="cactus" id="cactus"></div> */}
           {startBird && <div ref={birdRef} className="bird" id="bird"></div>}
           <div className="track"></div>
-          <div className="score">Score: {score}</div>
+          {/* <div className="score">Score: {score}</div> */}
           {gameOver && (
             <div className="game-over">
               Game Over! Your Score: {score}
               <button onClick={resetGame}>Restart</button>
+              <button onClick={endGame}>End Game</button>
             </div>
           )}
         </div>

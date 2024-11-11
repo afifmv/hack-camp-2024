@@ -24,7 +24,7 @@ export default function Home() {
         <h2 className={styles.smallh2}>To dodge the deoderants!</h2>
         <h2 className={styles.smallh2}>Collect milkteas for a highscore!</h2>
       </div>
-      <Link href="/game-start/profile">
+      <Link href="/dino">
         <img src="/continue.png" alt="" className={styles.continue} />
       </Link>
     </div>

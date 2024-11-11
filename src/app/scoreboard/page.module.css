@@ -1,0 +1,94 @@
+/* UserManagement.module.css */
+.container {
+  padding: 2rem;
+  width: 100vw;
+  height: 100vh;
+  margin: 0 auto;
+  font-family: "joystix";
+  background: url("../../../public/background.png");
+  background-size: cover;
+}
+
+.form {
+  background: #f5f5f5;
+  padding: 2rem;
+  border-radius: 8px;
+  margin-bottom: 2rem;
+}
+
+.formGroup {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.formGroup input {
+  padding: 0.5rem;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  flex: 1;
+  min-width: 200px;
+}
+
+.formGroup button {
+  padding: 0.5rem 1rem;
+  background: #007bff;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.formGroup button:hover {
+  background: #0056b3;
+}
+
+.tableContainer {
+  overflow-x: auto;
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 1rem;
+}
+
+.table th,
+.table td {
+  padding: 1rem;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+}
+
+.table th {
+  background: #f5f5f5;
+  font-weight: bold;
+}
+
+.table tr:hover {
+  background: #f9f9f9;
+}
+
+.error {
+  color: #dc3545;
+  padding: 1rem;
+  background: #f8d7da;
+  border-radius: 4px;
+  margin-bottom: 1rem;
+}
+
+@media (max-width: 768px) {
+  .container {
+    padding: 1rem;
+  }
+
+  .form {
+    padding: 1rem;
+  }
+
+  .table th,
+  .table td {
+    padding: 0.5rem;
+  }
+}

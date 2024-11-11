@@ -28,50 +28,66 @@
     background-image: url(./img/trex.png);
   } */
 
-.track {
-  width: 100%;
-  height: 100%;
-  background-image: url("./img/Track.png");
-  background-repeat: no-repeat;
-  position: relative;
-  top: 60px;
-}
-
-@keyframes jump {
-  0% {
-    top: 150px;
+  .dino {
+    width: 100px;
+    height: 100px;
+    background-image: url('./img/running-trans.gif');
+    background-repeat: no-repeat;
+    background-size: 100px 100px;
+    position: relative;
+    top: 180px;
   }
 
-  30% {
-    top: 130px;
-  }
-
-  50% {
-    top: 80px;
+  .dino.crouch {
+    width: 100px;
+    height: 100px;
+    background-image: url('./img/crouch.gif');
   }
   
-  .track {
-    width: 100%;
-    height: 100%;
-    background-image: url('./img/Track.png');
-    background-repeat: no-repeat;
-    position: absolute;
-    top: 250px;
+  .jump {
+    animation: jump 0.3s linear;
   }
 
-  100% {
-    top: 150px;
+  .track {
+    width: 100%;
+    height: 163px;
+    background-image: url('./img/track-new.png');
+    background-repeat: no-repeat;
+    position: absolute;
+    top: 260px;
   }
- 
+  
+  @keyframes jump {
+    0% {
+      top: 150px;
+    }
+  
+    30% {
+      top: 130px;
+    }
+  
+    50% {
+      top: 80px;
+    }
+  
+    80% {
+      top: 130px;
+    }
+  
+    100% {
+      top: 150px;
+    }
+  }
+  
   #cactus {
-    width: 20px;
-    height: 40px;
+    width: 15%;
+    height: 15%;
     position: relative;
-    top: 120px;
+    top: 110px;
     /* left: 1000px; */
-    background-image: url("img/cactus.png");
-    background-size: 20px 40px;
-    animation: block 3s linear;
+    background-image: url("img/spray-trans.gif");
+    background-size: 100% 100%;
+    animation: block 2s linear;
   }
   
   @keyframes block {
@@ -83,7 +99,7 @@
       left: 1px;
     }
   }
-}
+
   .score {
     position: absolute;
     /* top: 10px;
@@ -96,12 +112,11 @@
   .bird {
     width: 50px;
     height: 50px;
-    background-image: url('./img/Bird2.png');
+    background-image: url('./img/lc.png');
     background-size: 50px 50px;
-    position: relative;
-    /* top: 10px;
-    left: 580px; */
-    animation: fly 2s infinite linear;
+    position: absolute;
+    top: 150px;
+    animation: fly 2s linear;
   }
 
   @keyframes fly {

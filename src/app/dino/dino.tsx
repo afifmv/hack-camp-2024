@@ -39,15 +39,11 @@ function Dino() {
   };
 
   const resetGame = () => {
-    setScore(0);
-    setGameOver(false);
-    // Optionally, reset positions of cactus and bird
-    // if (cactusRef.current) {
-      move();
-    // }
-    // if (birdRef.current) {
-      moveBird();
-    // }
+    router.push(`/game-start/profile?score=${score}`);
+  };
+
+  const handleVideoTrackerLoaded = () => {
+    setLoading(false); // Once VideoTracker is loaded, set loading to false
   };
 
   function move() {
@@ -71,7 +67,6 @@ function Dino() {
         }
         // setRandomDelay(randomeDelay + Math.floor(Math.random() * 1000) + 1000);
       }, randomeDelay);
-
   }
 
   useEffect(() => {
@@ -85,11 +80,11 @@ function Dino() {
       if (event.key === 'ArrowUp') {
         setCurrentEvent('jump');
         jump();
-        setCurrentEvent('neutral');
-      } else if (event.key === 'ArrowDown') {
-        setCurrentEvent('crouch');
+        setCurrentEvent("neutral");
+      } else if (event.key === "ArrowDown") {
+        setCurrentEvent("crouch");
         crouch();
-        setCurrentEvent('neutral');
+        setCurrentEvent("neutral");
       }
     };
     window.addEventListener('keyup', handleKeyPress);
@@ -180,6 +175,7 @@ function Dino() {
   }, [score, gameOver]);
 
   return (
+    <div>
     <div className="frame">
       <div className="game">
         {/* <button onClick={resetGame}>Start</button> */}
@@ -201,6 +197,12 @@ function Dino() {
         )}
       </div>
     </div>
+      <VideoTracker
+        onLoaded={handleVideoTrackerLoaded}
+        onJump={jump}
+        onCrouch={crouch}
+      />
+      </div>
   );
 }
 

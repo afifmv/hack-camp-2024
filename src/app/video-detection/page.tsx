@@ -1,4 +1,5 @@
 // VideoTracker.tsx
+"use client";
 import { useEffect, useRef } from "react";
 import "@tensorflow/tfjs";
 import * as facemesh from "@tensorflow-models/facemesh";
@@ -6,9 +7,10 @@ import styles from "./page.module.css";
 
 interface VideoTrackerProps {
   onJump: () => void; // Add onJump as a function prop
+  onCrouch: () => void;
 }
 
-export default function VideoTracker({ onJump }: VideoTrackerProps) {
+export default function VideoTracker({ onJump, onCrouch }: VideoTrackerProps) {
   const videoRef = useRef(null);
   const canvasRef = useRef(null);
   const isWaitingRef = useRef(false);
@@ -56,6 +58,15 @@ export default function VideoTracker({ onJump }: VideoTrackerProps) {
             if (noseTip[1] < 100 && !isWaitingRef.current) {
               console.log("jump detected");
               onJump(); // Call the jump function passed as prop
+              isWaitingRef.current = true;
+              await delay(3000);
+              isWaitingRef.current = false;
+              console.log("Done delay");
+            }
+
+            if (noseTip[1] > 400 && !isWaitingRef.current) {
+              console.log("crouch detected");
+              onCrouch(); // Call the jump function passed as prop
               isWaitingRef.current = true;
               await delay(3000);
               isWaitingRef.current = false;

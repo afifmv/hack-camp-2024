@@ -4,9 +4,12 @@ import Image from "next/image";
 import styles from "./page.module.css";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import { useSearchParams } from "next/navigation";
 
 export default function Home() {
-  const router = useRouter(); // Access the Next.js router
+  const router = useRouter();
+  const searchParams = useSearchParams();
+  const score = searchParams.get("score");
   const handleSubmit = async (event) => {
     event.preventDefault(); // Prevent the default form submission
 
@@ -16,6 +19,7 @@ export default function Home() {
       name: formData.get("name"),
       height: formData.get("height"),
       weight: formData.get("weight"),
+      score,
     };
 
     try {
@@ -33,13 +37,15 @@ export default function Home() {
       if (response.error) {
         alert(`Error: ${response.error}`);
       } else {
-        router.push("/dino");
+        router.push("/scoreboard");
       }
     } catch (error) {
       // Handle error
       console.error("Error submitting form:", error);
     }
   };
+
+  console.log(score);
 
   return (
     <div className={styles.page}>
@@ -68,6 +74,7 @@ export default function Home() {
               id="weight"
               placeholder="Enter Weight"
             />
+            <input type="hidden" name="score" value={score || 0} />
           </div>
           <input
             type="image"

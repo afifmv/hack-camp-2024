@@ -220,7 +220,7 @@ function Dino() {
       setScore(score + 1);
 
       setTimeout(function () {
-        dinoRef.current.classList.remove('jump');
+        dinoRef.current.classList.remove("jump");
       }, 200);
     }
   };
@@ -231,11 +231,10 @@ function Dino() {
       setScore(score + 1);
 
       setTimeout(function () {
-        dinoRef.current.classList.remove('crouch');
+        dinoRef.current.classList.remove("crouch");
       }, 200);
     }
   };
-
   const resetGame = () => {
     setScore(0);
     setGameOver(false);
@@ -269,7 +268,6 @@ function Dino() {
         crouch();
       }
     };
-
     window.addEventListener('keyup', handleKeyPress);
 
     const isAlive = setInterval(function () {
@@ -279,16 +277,16 @@ function Dino() {
       }
 
       const dinoTop = parseInt(
-        getComputedStyle(dinoRef.current!).getPropertyValue('top')
+        getComputedStyle(dinoRef.current!).getPropertyValue("top")
       );
       const dinoRight = parseInt(
         getComputedStyle(dinoRef.current!).getPropertyValue('right')
       );
       let cactusLeft = parseInt(
-        getComputedStyle(cactusRef.current!).getPropertyValue('left')
+        getComputedStyle(cactusRef.current!).getPropertyValue("left")
       );
       let birdLeft = parseInt(
-        getComputedStyle(birdRef.current!).getPropertyValue('left')
+        getComputedStyle(birdRef.current!).getPropertyValue("left")
       );
       let birdTop = parseInt(
         getComputedStyle(birdRef.current!).getPropertyValue('bottom')

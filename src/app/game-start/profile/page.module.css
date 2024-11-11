@@ -1,0 +1,66 @@
+.page {
+  background: url("../../../../public/background.png");
+  background-size: cover;
+  min-height: 100vh;
+}
+
+.page h1 {
+  /* border: 1px solid red;s   */
+  text-align: center;
+  font-family: "joystix";
+  font-size: 5rem;
+  margin-left: 0px;
+  margin-bottom: 30px;
+  top: 1;
+}
+
+.personal_profile__container {
+  /* background: rgb(128, 128, 128, 0.5); */
+  width: 80vw;
+  height: 70vh;
+  margin: auto;
+  display: grid;
+  grid-template-columns: 1fr 0.1fr 1fr;
+  padding: 20px;
+}
+
+.personal_profile__container img {
+  height: 50%;
+  margin-left: 30px;
+  margin-top: 30px;
+}
+
+.inputs_ask__container {
+  font-family: "joystix";
+  display: block;
+  text-align: center;
+  margin-top: 100px;
+}
+
+.inputs_ask__container h2 {
+  margin: 50px auto;
+  font-size: 3rem;
+}
+
+.inputs__container {
+  font-family: "joystix";
+  display: block;
+  text-align: center;
+  margin-top: 140px;
+}
+
+.inputs__container > input {
+  margin: 58px;
+  display: block;
+  font-size: 3rem;
+  outline: none;
+  background-color: transparent;
+  border: 1px solid #ccc; /* Optional: Adds a visible border */
+  z-index: 2;
+  font-family: "joystix";
+}
+
+.continue {
+  position: relative;
+  left: 200px;
+}

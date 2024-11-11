@@ -1,9 +1,9 @@
 import Dino from "./dino";
-
-export default function Home() {
-  return (
-    <div>
-      <Dino />
-    </div>
-  );
+export default function Dinosaur() {
+    return (
+        <div>
+            <Dino />
+        </div>
+        
+    );
 }
